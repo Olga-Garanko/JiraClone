@@ -3,6 +3,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 import { AppComponent } from './app.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
@@ -14,6 +16,7 @@ import { ProjectComponent } from './pages/project/project.component';
 import { IssueComponent } from './pages/issue/issue.component';
 import { SprintComponent } from './pages/sprint/sprint.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
