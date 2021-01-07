@@ -3,7 +3,12 @@
       <a href="#" class="brand-logo">JiraClone</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li routerLinkActive="active"><a routerLink ="dashboard">Projects</a></li>
-        <li><a href="#" (click)="logout($event)">Logout</a></li>
+        <li><a href="#" (click)="auth.signOut()">Logout</a></li>
       </ul>
     </div>
 </nav>
+<div *ngIf="auth.user$ | async as user">
+  <h3>Howdy, {{ user.displayName }}</h3>
+  <p>UID: {{ user.uid }}</p>
+  <button (click)="auth.signOut()">Logout</button>
+</div>

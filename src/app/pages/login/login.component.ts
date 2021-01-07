@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnSecureToken: true;
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(public auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -32,11 +32,13 @@ export class LoginComponent implements OnInit {
       email: this.form.value.email,
       password: this.form.value.password
     }
-    this.auth.login(user).subscribe(res => {
+    this.auth.signIn(user.email, user.password)
+    .then(() => {
       this.form.reset;
       this.router.navigate(['../../', 'dashboard']);
       this.submitted = false;
-    }, () => {
+    })
+    .catch(() => {
       this.submitted = false;
     })
   }
