@@ -1,5 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
-    <h2>Login</h2>
+    <h2>Sign In</h2>
+    <div *ngIf="response" class="response">{{ response }}</div>
     <div class="row">
         <div class="input-field col s12">
             <input id="email" type="email" formControlName="email">
@@ -29,10 +30,3 @@
         </button>
     </div>
 </form>
-
-<h3>Howdy, GUEST</h3>
-<p>Login to get started...</p>
-
-<button (click)="auth.googleSignin()">
-    <i class="fa fa-google"></i> Connect Google
-</button>

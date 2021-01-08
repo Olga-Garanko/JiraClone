@@ -1,1 +1,42 @@
-<p>registration works!</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <h2>Sign Up</h2>
+    <div *ngIf="response" class="response">{{ response }}</div>
+    <div class="row">
+        <div class="input-field col s12">
+            <input id="displayName" type="text" formControlName="displayName">
+            <label for="displayName">Name</label>
+            <div *ngIf="form.get('displayName').touched && form.get('displayName').invalid" class="helper-text">
+                <small *ngIf="form.get('displayName').errors.required">Enter Name</small>
+                <small *ngIf="form.get('displayName').errors.email">Enter valid Name</small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <input id="email" type="email" formControlName="email">
+            <label for="email">Email</label>
+            <div *ngIf="form.get('email').touched && form.get('email').invalid" class="helper-text">
+                <small *ngIf="form.get('email').errors.required">Enter Email</small>
+                <small *ngIf="form.get('email').errors.email">Enter valid Email</small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <input id="password" type="password" formControlName="password">
+            <label for="password">Password</label>
+            <div *ngIf="form.get('password').touched && form.get('password').invalid" class="helper-text">
+                <small *ngIf="form.get('password').errors.required">Enter Password</small>
+                <small *ngIf="form.get('password').errors.minlength">
+                    Password must be at least {{form.get('password').errors.minlength.requiredLength}} characters.
+                    Now he has {{form.get('password').errors.minlength.actualLength}} characters.
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <button class="waves-effect waves-light btn" type="submit" [disabled]="form.invalid || submitted">
+            Sign Up
+        </button>
+    </div>
+</form>

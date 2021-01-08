@@ -1,1 +1,32 @@
-<p>dashboard works!</p>
+<div><a class="waves-effect waves-light btn right" routerLink ="../new-project">New</a></div>
+<div>
+    <mat-toolbar>
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with filter icon">
+        <mat-icon>filter_list</mat-icon>
+    </button>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+        <mat-icon>sort</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        <mat-icon>search</mat-icon>
+    </button>
+    </mat-toolbar>    
+</div>
+
+
+<mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false" *ngFor="let item of items$ | async as items">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ item.title }}
+        </mat-panel-title>
+        <mat-panel-description>
+            description {{ item.title }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>Start Date {{ item.startDate }}</p>
+      <a>See issues</a>
+    </mat-expansion-panel>
+</mat-accordion>

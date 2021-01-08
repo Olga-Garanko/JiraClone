@@ -56,9 +56,13 @@ export class AuthService {
     return userRef.set(data)
   }
 
-  async signUp(email: string, password: string) {
+  async signUp(displayName: string, email: string, password: string) {
     const credential = await this.authFb.createUserWithEmailAndPassword(email, password);
-    this.updateUserData(credential.user);
+    const user = {
+      ...credential.user,
+      displayName
+    }
+    this.updateUserData(user);
     return this.router.navigate(['/']);
   }
     

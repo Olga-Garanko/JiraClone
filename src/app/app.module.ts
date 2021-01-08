@@ -17,6 +17,16 @@ import { IssueComponent } from './pages/issue/issue.component';
 import { SprintComponent } from './pages/sprint/sprint.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { environment } from 'src/environments/environment';
+import { MenuComponent } from './components/menu/menu.component';
+import { UserComponent } from './pages/user/user.component';
+import { IssuesComponent } from './pages/issues/issues.component';
+import { NewProjectComponent } from './pages/new-project/new-project.component';
+import { NewIssueComponent } from './pages/new-issue/new-issue.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatExpansionModule } from '@angular/material/expansion';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -29,7 +39,12 @@ import { environment } from 'src/environments/environment';
     ProjectComponent,
     IssueComponent,
     SprintComponent,
-    NavbarComponent
+    NavbarComponent,
+    MenuComponent,
+    UserComponent,
+    IssuesComponent,
+    NewProjectComponent,
+    NewIssueComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +53,11 @@ import { environment } from 'src/environments/environment';
     ReactiveFormsModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    BrowserAnimationsModule,
+    MatExpansionModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

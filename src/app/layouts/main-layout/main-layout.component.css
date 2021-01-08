@@ -1,0 +1,10 @@
+.section {
+    display: flex;
+}
+.aside {
+    flex: 0 0 20%;
+    margin-right: 20px;
+}
+.main {
+    flex-grow: 1;
+}

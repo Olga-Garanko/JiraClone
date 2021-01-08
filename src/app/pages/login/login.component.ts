@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { from } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router} from '@angular/router';
 
@@ -12,7 +11,7 @@ import { Router} from '@angular/router';
 export class LoginComponent implements OnInit {
   form: FormGroup;
   submitted = false;
-  returnSecureToken: true;
+  response = '';
 
   constructor(public auth: AuthService, private router: Router) { }
 
@@ -28,6 +27,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.submitted = true;
+    this.response = '';
     const user = {
       email: this.form.value.email,
       password: this.form.value.password
@@ -38,8 +38,9 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['../../', 'dashboard']);
       this.submitted = false;
     })
-    .catch(() => {
+    .catch(err => {
       this.submitted = false;
+      this.response = err.message;
     })
   }
 

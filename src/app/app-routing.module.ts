@@ -5,20 +5,28 @@ import { QuillModule } from 'ngx-quill';
 
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { IssuesComponent } from './pages/issues/issues.component';
 import { IssueComponent } from './pages/issue/issue.component';
 import { ProjectComponent } from './pages/project/project.component';
+import { NewIssueComponent } from './pages/new-issue/new-issue.component';
+import { NewProjectComponent } from './pages/new-project/new-project.component';
 import { SprintComponent } from './pages/sprint/sprint.component';
+import { UserComponent } from './pages/user/user.component';
 
 
 const routes: Routes = [
   {
-    path: '', component: MainLayoutComponent,
+    path: '', component: MainLayoutComponent, canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full', canActivate: [AuthGuard] },
-      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-      { path: 'project/:id', component: ProjectComponent, canActivate: [AuthGuard] },
-      { path: 'issue/:id', component: IssueComponent, canActivate: [AuthGuard] },
-      { path: 'sprint', component: SprintComponent, canActivate: [AuthGuard] }
+      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'project/:id', component: ProjectComponent },
+      { path: 'new-project', component: NewProjectComponent },
+      { path: 'issues', component: IssuesComponent },
+      { path: 'issue/:id', component: IssueComponent },
+      { path: 'new-issue', component: NewIssueComponent },
+      { path: 'sprint', component: SprintComponent },
+      { path: 'user', component: UserComponent },
     ]
   },
   {

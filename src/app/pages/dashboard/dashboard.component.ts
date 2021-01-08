@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class DashboardComponent implements OnInit {
   items$: Observable<any>;
   constructor(db: AngularFireDatabase) {
-    this.items$ = db.list('users').valueChanges();
+    this.items$ = db.list('projects').valueChanges();
   }
   // <h1>{{ (item | async)?.name }}</h1>
   // item: Observable<any>;
@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   // }
 
   ngOnInit(): void {
-    this.items$.subscribe(i => console.log(i))
+    //this.items$.subscribe(i => console.log(i))
   }
 
 }
