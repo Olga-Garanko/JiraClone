@@ -1,1 +1,68 @@
-<p>new-project works!</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <h2>Create Project</h2>
+    <div *ngIf="response" class="response">{{ response }}</div>
+    <div class="row">
+        <div class="input-field col s12">
+            <input id="title" type="text" formControlName="title">
+            <label for="title">Title*</label>
+            <div *ngIf="form.get('title').touched && form.get('title').invalid" class="helper-text">
+                <small *ngIf="form.get('title').errors.required">Enter title</small>
+                <small *ngIf="form.get('title').errors.email">
+                    Title must be at least {{form.get('title').errors.minlength.requiredLength}} characters.
+                    Now he has {{form.get('title').errors.minlength.actualLength}} characters.
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <input id="key" type="text" formControlName="key">
+            <label for="key">Key*</label>
+            <div *ngIf="form.get('key').touched && form.get('key').invalid" class="helper-text">
+                <small *ngIf="form.get('key').errors.required">Enter key</small>
+                <small *ngIf="form.get('key').errors.email">
+                    Key must be at least {{form.get('key').errors.minlength.requiredLength}} characters.
+                    Now he has {{form.get('key').errors.minlength.actualLength}} characters.
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <input id="type" type="text" formControlName="type">
+            <label for="type">Type</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <input id="category" type="text" formControlName="category">
+            <label for="category">Category</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <input id="url" type="text" formControlName="url">
+            <label for="url">URL</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <input id="lead" type="text" formControlName="lead">
+            <label for="lead">Lead</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <input id="description" type="text" formControlName="description">
+            <label for="description">Description</label>
+        </div>
+    </div>
+    <div class="row">
+        <button class="waves-effect waves-light btn" type="submit" [disabled]="submitted">
+            Reset
+        </button>
+        <button class="waves-effect waves-light btn" type="submit" [disabled]="form.invalid || submitted">
+            Create
+        </button>
+    </div>
+</form>

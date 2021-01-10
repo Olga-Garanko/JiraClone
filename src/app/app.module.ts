@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { QuillModule } from 'ngx-quill';
+import { environment } from 'src/environments/environment';
 
 import { AppComponent } from './app.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
@@ -16,7 +18,6 @@ import { ProjectComponent } from './pages/project/project.component';
 import { IssueComponent } from './pages/issue/issue.component';
 import { SprintComponent } from './pages/sprint/sprint.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { environment } from 'src/environments/environment';
 import { MenuComponent } from './components/menu/menu.component';
 import { UserComponent } from './pages/user/user.component';
 import { IssuesComponent } from './pages/issues/issues.component';
@@ -27,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import {MatIconModule} from '@angular/material/icon';
     BrowserAnimationsModule,
     MatExpansionModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    QuillModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
