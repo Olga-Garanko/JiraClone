@@ -66,8 +66,7 @@ export class AuthService {
   }
     
   async signIn(email: string, password: string) {
-    const credential = await this.authFb.signInWithEmailAndPassword(email, password);
-    this.updateUserData(credential.user);
+    await this.authFb.signInWithEmailAndPassword(email, password);
     return this.router.navigate(['/']);
   }
 }

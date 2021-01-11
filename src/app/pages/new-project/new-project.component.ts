@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProjectService } from 'src/app/services/project.service';
 import { Router} from '@angular/router';
-import { map } from 'rxjs/operators';
-import { FbResponse } from '../../interfaces';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-new-project',
@@ -14,8 +14,10 @@ export class NewProjectComponent implements OnInit {
   form: FormGroup;
   submitted = false;
   response = '';
-
-  constructor(public project: ProjectService, private router: Router) { }
+  users$: Observable<any>;
+  constructor(public project: ProjectService, private router: Router, db: AngularFireDatabase) {
+    this.users$ = db.list('users').valueChanges();
+  }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -46,16 +48,9 @@ export class NewProjectComponent implements OnInit {
       created_date: new Date()
     }
     this.project.create(project)
-    .pipe(map((res: FbResponse) => {
-      return {
-        ...project,
-        id: res.name
-      }
-    }))
-    .subscribe(project => {
+    .then(() => {
       this.form.reset;
       this.submitted = false;
-      console.log(project);
       this.router.navigate(['../../', 'dashboard']);
     },
     err => {

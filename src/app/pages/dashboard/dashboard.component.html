@@ -26,7 +26,10 @@
             description {{ item.title }}
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>Start Date {{ item.startDate }}</p>
-      <a>See issues</a>
+      <p>Start Date {{ item.created_date | date }}</p>
+      <div class="btns">
+        <a [routerLink]="['/project', item.id]">See issues</a>
+        <a href="#" class="btns_red" (click)="removeItem($event, item.id)">Delete</a>
+      </div>
     </mat-expansion-panel>
 </mat-accordion>

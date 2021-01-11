@@ -1,0 +1,7 @@
+.btns {
+    display: flex;
+    justify-content: space-between;
+}
+.btns_red {
+    color: red;
+}

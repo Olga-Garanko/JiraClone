@@ -3,8 +3,8 @@
     <div *ngIf="response" class="response">{{ response }}</div>
     <div class="row">
         <div class="input-field col s12">
+            <p><label for="title">Title*</label></p>
             <input id="title" type="text" formControlName="title">
-            <label for="title">Title*</label>
             <div *ngIf="form.get('title').touched && form.get('title').invalid" class="helper-text">
                 <small *ngIf="form.get('title').errors.required">Enter title</small>
                 <small *ngIf="form.get('title').errors.email">
@@ -16,8 +16,8 @@
     </div>
     <div class="row">
         <div class="input-field col s12">
+            <p><label for="key">Key*</label></p>
             <input id="key" type="text" formControlName="key">
-            <label for="key">Key*</label>
             <div *ngIf="form.get('key').touched && form.get('key').invalid" class="helper-text">
                 <small *ngIf="form.get('key').errors.required">Enter key</small>
                 <small *ngIf="form.get('key').errors.email">
@@ -29,38 +29,41 @@
     </div>
     <div class="row">
         <div class="input-field col s12">
-            <input id="type" type="text" formControlName="type">
-            <label for="type">Type</label>
+            <p><label for="type">Type</label></p>
+            <select name="type" id="type" formControlName="type" >
+                <option value="1">1</option>
+            </select>
         </div>
     </div>
     <div class="row">
         <div class="input-field col s12">
-            <input id="category" type="text" formControlName="category">
-            <label for="category">Category</label>
+            <p><label for="type">Category</label></p>
+            <select name="category" id="category" formControlName="category" >
+                <option value="1">1</option>
+            </select>
         </div>
     </div>
     <div class="row">
         <div class="input-field col s12">
+            <p><label for="url">URL</label></p>
             <input id="url" type="text" formControlName="url">
-            <label for="url">URL</label>
         </div>
     </div>
     <div class="row">
         <div class="input-field col s12">
-            <input id="lead" type="text" formControlName="lead">
-            <label for="lead">Lead</label>
+            <p><label for="lead">Lead</label></p>
+            <select name="lead" id="lead" formControlName="lead" >
+                <option *ngFor="let item of users$ | async as users" [value]="item.uid">{{ item.displayName }}</option>
+            </select>
         </div>
     </div>
     <div class="row">
         <div class="input-field col s12">
-            <input id="description" type="text" formControlName="description">
-            <label for="description">Description</label>
+            <p><label for="description">Description</label></p>
+            <quill-editor formControlName="description"></quill-editor>
         </div>
     </div>
     <div class="row">
-        <button class="waves-effect waves-light btn" type="submit" [disabled]="submitted">
-            Reset
-        </button>
         <button class="waves-effect waves-light btn" type="submit" [disabled]="form.invalid || submitted">
             Create
         </button>
