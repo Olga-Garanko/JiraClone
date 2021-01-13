@@ -20,13 +20,16 @@
                          (closed)="panelOpenState = false" *ngFor="let item of items$ | async as items">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{ item.title }}
+          <b>{{ item.title }}</b>
         </mat-panel-title>
         <mat-panel-description>
-            description {{ item.title }}
+            {{ item.key }}
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>Start Date {{ item.created_date | date }}</p>
+      <p><b>Start Date</b> {{ item.created_date | date }}</p>
+      <p><b>Project Lead</b> {{ getUserName(item.lead) }}</p>
+      <p><b>Project type</b> {{ item.type }}</p>
+      <p [innerHtml]="item.description"></p>
       <div class="btns">
         <a [routerLink]="['/project', item.id]">See issues</a>
         <a href="#" class="btns_red" (click)="removeItem($event, item.id)">Delete</a>

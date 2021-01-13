@@ -5,9 +5,10 @@ import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
 import firebase from 'firebase/app';
+import { find } from 'rxjs/operators';
 
 export interface Product {
-  uid: string;
+  id: string;
   title: string,
   key: string,
   type: string,
@@ -24,12 +25,12 @@ export interface Product {
 })
 export class ProjectService {
   user: string;
-  products$: Observable<Product>;
+  products$: Observable<Product[]>;
 
   constructor(private auth: AuthService, private db: AngularFireDatabase) {
     this.auth.user$.subscribe(u => {
       this.user = u.uid;
-    })
+    });
   }
 
   create(project) {
@@ -55,6 +56,9 @@ export class ProjectService {
   remove(id) {
     const projectsRef = this.db.list('projects');
     return projectsRef.remove(id);
+  }
+  getProjectById(id) {
+    return id
   }
 
 }
