@@ -17,22 +17,22 @@
 
 <mat-accordion>
     <mat-expansion-panel (opened)="panelOpenState = true"
-                         (closed)="panelOpenState = false" *ngFor="let item of items$ | async as items">
+                         (closed)="panelOpenState = false" *ngFor="let project of projects">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <b>{{ item.title }}</b>
+          <b>{{ project.title }}</b>
         </mat-panel-title>
         <mat-panel-description>
-            {{ item.key }}
+            {{ project.key }}
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p><b>Start Date</b> {{ item.created_date | date }}</p>
-      <p><b>Project Lead</b> {{ getUserName(item.lead) }}</p>
-      <p><b>Project type</b> {{ item.type }}</p>
-      <p [innerHtml]="item.description"></p>
+      <p><b>Start Date</b> {{ project.created_date | date }}</p>
+      <p><b>Project Lead</b> {{ project.lead }}</p>
+      <p><b>Project type</b> {{ project.type }}</p>
+      <p [innerHtml]="project.description"></p>
       <div class="btns">
-        <a [routerLink]="['/project', item.id]">See issues</a>
-        <a href="#" class="btns_red" (click)="removeItem($event, item.id)">Delete</a>
+        <a [routerLink]="['/project', project.id]">See issues</a>
+        <a href="#" class="btns_red" (click)="removeItem($event, project.id)">Delete</a>
       </div>
     </mat-expansion-panel>
 </mat-accordion>

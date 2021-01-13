@@ -1,4 +1,4 @@
-<a class="waves-effect waves-light btn right" routerLink ="../new-issue">New</a>
+<a class="waves-effect waves-light btn right" routerLink ="../new-issue">New Issue</a>
 <div>
     <mat-toolbar>
         <button mat-icon-button class="example-icon" aria-label="Example icon-button with filter icon">
@@ -18,12 +18,12 @@
     <div class="col s12 m4" *ngFor="let item of items$ | async as items">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
-          <span class="card-title">{{ item.title }}</span>
+          <span class="card-title">{{ item.summary }}</span>
           <p>{{ item.owner }}</p>
           <p>{{ item.assignee }}</p>
         </div>
         <div class="card-action">
-          <a href="#">details</a>
+          <a [routerLink]="['../issue', item.id]">details</a>
         </div>
       </div>
     </div>

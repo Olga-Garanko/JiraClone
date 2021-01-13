@@ -1,36 +1,22 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
-import firebase from 'firebase/app';
-import { find } from 'rxjs/operators';
+import { User, Project } from './interfaces';
 
-export interface Product {
-  id: string;
-  title: string,
-  key: string,
-  type: string,
-  category: string,
-  url: string,
-  lead: string,
-  owner: string,
-  description: string,
-  created_date: Date
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
   user: string;
-  products$: Observable<Product[]>;
+  projects$: Observable<Project[]>;
 
   constructor(private auth: AuthService, private db: AngularFireDatabase) {
-    this.auth.user$.subscribe(u => {
-      this.user = u.uid;
+    this.auth.user$.subscribe((user: User) => {
+      this.user = user.uid;
     });
+    this.projects$ = this.db.list<Project>('projects').valueChanges();
   }
 
   create(project) {
@@ -53,12 +39,13 @@ export class ProjectService {
       })
     })
   }
+
   remove(id) {
     const projectsRef = this.db.list('projects');
     return projectsRef.remove(id);
   }
-  getProjectById(id) {
-    return id
-  }
 
+  getProjectById(id) {
+    return this.db.object<Project>(`projects/${id}`).valueChanges();
+  }
 }

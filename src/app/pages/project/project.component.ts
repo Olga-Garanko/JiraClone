@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { ActivatedRoute} from '@angular/router';
-import { Observable } from 'rxjs';
 import { ProjectService } from 'src/app/services/project.service';
+import { Project } from '../../services/interfaces';
 
 @Component({
   selector: 'app-project',
@@ -11,20 +10,14 @@ import { ProjectService } from 'src/app/services/project.service';
 })
 export class ProjectComponent implements OnInit {
   id: string;
-  projects$: Observable<any>;
-  projects: any[];
-  project: any;
-  constructor(private activateRoute: ActivatedRoute, private db: AngularFireDatabase) {
-    this.id = activateRoute.snapshot.params['id'];
-    this.projects$ = db.list('projects').valueChanges();
-  }
+  project: Project;
+  constructor(private activateRoute: ActivatedRoute, private prj: ProjectService) {}
 
   ngOnInit(): void {
-    //this.items$.subscribe(i => console.log(i))
-    this.projects$.subscribe(projects => {
-      this.projects = projects;
-      this.project = this.projects.find(i => i.id === this.id)
-    });
+    this.id = this.activateRoute.snapshot.params['id'];   
+    this.prj.getProjectById(this.id).subscribe(project => {
+      this.project = project;
+    });      
   }
 
 }

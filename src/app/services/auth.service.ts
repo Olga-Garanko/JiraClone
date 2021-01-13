@@ -7,19 +7,16 @@ import firebase from 'firebase/app';
 import { Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
-import { tap, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
+import { User } from './interfaces';
 
-export interface User {
-  uid: string;
-  email: string;
-  displayName?: string;
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   user$: Observable<User>;
+  users$: Observable<User[]>;
   constructor(private http: HttpClient,
     private router: Router, private db: AngularFireDatabase, private authFb: AngularFireAuth) {
     this.user$ = this.authFb.authState.pipe(
@@ -31,6 +28,7 @@ export class AuthService {
         }
       })
     );
+    this.users$ = this.db.list<User>('users').valueChanges();
   }
 
   async googleSignin() {

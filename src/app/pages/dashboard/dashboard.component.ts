@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
@@ -9,27 +8,24 @@ import { ProjectService } from 'src/app/services/project.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  items$: Observable<any>;
-  users$: Observable<any>;
-  users: any[];
-  constructor(db: AngularFireDatabase, public project: ProjectService) {
-    this.items$ = db.list('projects').valueChanges();
-    this.users$ = db.list('users').valueChanges();
+  projects: any[] = [];
+  users: any[] = [];
+  constructor(public project: ProjectService, public auth: AuthService) {
+    
   }
 
   getUserName(key) {
     if (!key) return;
     return this.users.find(i => i.uid == key).displayName;
   }
-  // <h1>{{ (item | async)?.name }}</h1>
-  // item: Observable<any>;
-  // constructor(db: AngularFireDatabase) {
-  //   this.item = db.object('item').valueChanges();
-  // }
 
   ngOnInit(): void {
-    //this.items$.subscribe(i => console.log(i))
-    this.users$.subscribe(users => this.users = users)
+    this.auth.users$.subscribe(users => {
+      this.users = users;
+    });
+    this.project.projects$.subscribe(projects => {
+      this.projects = projects;
+    });
   }
 
   removeItem(event, id) {
