@@ -1,0 +1,13 @@
+<div class="card-content white-text">
+    <span class="card-title">{{ issue.summary }}</span>
+    <p>project: {{ getProjectName(issue.project) }}</p>
+    <p>due date: {{ issue.dueDate }}</p>
+    <p>type: {{ issue.type }}</p>
+    <p>priority: {{ issue.priority }}</p>
+    <p>owner: {{ getUserName(issue.owner) }}</p>
+    <p>assignee: {{ getUserName(issue.assignee) }}</p>
+    <p>status: {{ issue.status }}</p>
+</div>
+<div class="card-action">
+    <a [routerLink]="['../issue', issue.id]">details</a>
+</div>

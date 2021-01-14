@@ -18,11 +18,13 @@ export interface Project {
 export interface Issue {
     id?: string;
     summary: string,
-    project: Project,
+    project: string,
     type: string,
     priority: string,
     dueDate: Date,
-    assignee: User,
+    assignee: string,
     description: string,
-    created_date: Date
+    created_date: Date,
+    status?: string,
+    owner?: string
 }

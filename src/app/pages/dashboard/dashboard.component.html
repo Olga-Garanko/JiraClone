@@ -17,7 +17,7 @@
 
 <mat-accordion>
     <mat-expansion-panel (opened)="panelOpenState = true"
-                         (closed)="panelOpenState = false" *ngFor="let project of projects">
+                         (closed)="panelOpenState = false" *ngFor="let project of prj.projects$ | async as projects">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <b>{{ project.title }}</b>
@@ -27,7 +27,7 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <p><b>Start Date</b> {{ project.created_date | date }}</p>
-      <p><b>Project Lead</b> {{ project.lead }}</p>
+      <p><b>Project Lead</b> {{ getUserName(project.lead) }}</p>
       <p><b>Project type</b> {{ project.type }}</p>
       <p [innerHtml]="project.description"></p>
       <div class="btns">

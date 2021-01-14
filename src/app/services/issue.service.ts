@@ -26,7 +26,8 @@ export class IssueService {
       owner: issue.owner || this.user,
       dueDate: issue.dueDate || Date.now(),
       description: issue.description || '',
-      created_date: Date.now()
+      created_date: Date.now(),
+      status: 'TO DO'
     }
     const issuesRef = this.db.list('issues');
     return issuesRef.push(data)

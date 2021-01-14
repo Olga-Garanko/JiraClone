@@ -28,6 +28,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
+import { StatusPipe } from './pipes/status.pipe';
+import { IssueCardComponent } from './components/issue-card/issue-card.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import {MatIconModule} from '@angular/material/icon';
     UserComponent,
     IssuesComponent,
     NewProjectComponent,
-    NewIssueComponent
+    NewIssueComponent,
+    StatusPipe,
+    IssueCardComponent
   ],
   imports: [
     BrowserModule,

@@ -5,7 +5,7 @@
         <div class="input-field col s12">
             <p><label for="project">Project*</label></p>
             <select name="project" id="project" formControlName="project" >
-                <option *ngFor="let item of projects" [value]="item.id">{{ item.title }}</option>
+                <option *ngFor="let item of prj.projects$ | async as projects" [value]="item.id">{{ item.title }}</option>
             </select>
         </div>
     </div>
