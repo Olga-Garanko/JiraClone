@@ -14,7 +14,6 @@
     </mat-toolbar>    
 </div>
 
-
 <mat-accordion>
     <mat-expansion-panel (opened)="panelOpenState = true"
                          (closed)="panelOpenState = false" *ngFor="let project of prj.projects$ | async as projects">
@@ -36,3 +35,7 @@
       </div>
     </mat-expansion-panel>
 </mat-accordion>
+
+<ng-template #empty>
+  <p>There is no issues yet</p>
+</ng-template>

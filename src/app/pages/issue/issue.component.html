@@ -1,1 +1,76 @@
-<p>issue works!</p>
+<div *ngIf="issue$ | async as issue; else loading">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div *ngIf="response" class="response">{{ response }}</div>
+        <div class="row">
+            <div class="input-field col s12">
+                <p *ngIf="project$ | async as project"><label for="project">Project </label> <b>{{ project.title }}</b></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <p><label for="type">Issue Type*</label></p>
+                <select name="type" id="type" formControlName="type">
+                    <option value="Story">Story</option>
+                    <option value="Epic">Epic</option>
+                    <option value="Story">Task</option>
+                    <option value="Bug">Bug</option>
+                    <option value="Feature">Feature</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <p><label for="summary">Summary*</label></p>
+                <input id="summary" type="text" formControlName="summary">
+                <div *ngIf="form.get('summary').touched && form.get('summary').invalid" class="helper-text">
+                    <small *ngIf="form.get('summary').errors.required">Enter summary</small>
+                    <small *ngIf="form.get('summary').errors.email">
+                        Title must be at least {{form.get('summary').errors.minlength.requiredLength}} characters.
+                        Now he has {{form.get('summary').errors.minlength.actualLength}} characters.
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <p><label for="priority">Priority</label></p>
+                <select name="priority" id="priority" formControlName="priority" >
+                    <option value="Blocker">Blocker</option>
+                    <option value="Major">Major</option>
+                    <option value="Critical">Critical</option>
+                    <option value="Minor">Minor</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <p><label for="dueDate">Due Date</label></p>
+                <input id="dueDate" type="date" formControlName="dueDate">
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <p><label for="assignee">Assignee</label></p>
+                <select name="assignee" id="assignee" formControlName="assignee" >
+                    <option *ngFor="let item of users$ | async as users" [value]="item.uid">{{ item.displayName }}</option>
+                </select>
+                <a>Assign to me</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <p><label for="description">Description</label></p>
+                <quill-editor formControlName="description"></quill-editor>
+            </div>
+        </div>
+        <div class="row">
+            <button class="waves-effect waves-light btn" type="submit" [disabled]="form.invalid || submitted">
+                Create
+            </button>
+        </div>
+    </form>
+</div>
+<ng-template #loading>
+    <p>Loading...</p>
+</ng-template>
+

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Issue, User } from './interfaces';
 import { AuthService } from './auth.service';
@@ -9,12 +9,11 @@ import { AuthService } from './auth.service';
 })
 export class IssueService {
   user: string;
-  issues$: Observable<Issue[]>;
+  //issues$: Observable<Issue[]>;
   constructor(private auth: AuthService, private db: AngularFireDatabase) {
     this.auth.user$.subscribe((user: User) => {
       this.user = user.uid;
     });
-    this.issues$ = this.db.list<Issue>('issues').valueChanges();
   }
 
   create(issue) {
@@ -40,11 +39,20 @@ export class IssueService {
   }
 
   remove(id) {
-    const issuesRef = this.db.list('issues');
-    return issuesRef.remove(id);
+    return this.db.list<Issue>('issues').remove(id);
+  }
+  getAll() {
+    return this.db.list<Issue>('issues').valueChanges();
   }
 
-  getIssueById(id) {
+  getById(id) {
     return this.db.object<Issue>(`issues/${id}`).valueChanges();
+  }
+
+  getAllByProject(id: string) {
+    return this.db.list<Issue>(`issues`).valueChanges()
+      .pipe(
+        map(issues => issues.filter(issue => issue.project === id))
+      )
   }
 }

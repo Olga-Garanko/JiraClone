@@ -7,9 +7,9 @@ import firebase from 'firebase/app';
 import { Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 import { User } from './interfaces';
 
+import { tap, map, pluck, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -66,5 +66,13 @@ export class AuthService {
   async signIn(email: string, password: string) {
     await this.authFb.signInWithEmailAndPassword(email, password);
     return this.router.navigate(['/']);
+  }
+  getUserId(id) {
+    return this.db.object<User>(`users/${id}`).valueChanges()
+    .pipe(map(user => user))
+  }
+
+  getAll() {
+    return this.db.list<User>('users').valueChanges();
   }
 }

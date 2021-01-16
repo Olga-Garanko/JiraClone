@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { User, Project } from './interfaces';
+import { tap, map, switchMap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -47,5 +48,9 @@ export class ProjectService {
 
   getProjectById(id) {
     return this.db.object<Project>(`projects/${id}`).valueChanges();
+  }
+  getProjectTitle(id) {
+    return this.db.object<Project>(`projects/${id}`).valueChanges()
+    .pipe(map(project => project.title))
   }
 }
