@@ -3,6 +3,16 @@
         <div *ngIf="response" class="response">{{ response }}</div>
         <div class="row">
             <div class="input-field col s12">
+                <p><label for="status">Status </label>
+                    <select name="status" id="status" formControlName="status" (change)="submit()">
+                        <option value="TO DO">TO DO</option>
+                        <option value="IN PROGRESS">IN PROGRESS</option>
+                        <option value="DONE">DONE</option>
+                    </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
                 <p *ngIf="project$ | async as project"><label for="project">Project </label> <b>{{ project.title }}</b></p>
             </div>
         </div>
@@ -54,7 +64,7 @@
                 <select name="assignee" id="assignee" formControlName="assignee" >
                     <option *ngFor="let item of users$ | async as users" [value]="item.uid">{{ item.displayName }}</option>
                 </select>
-                <a>Assign to me</a>
+                <a href="#" (click)="assignToMe($event)">Assign to me</a>
             </div>
         </div>
         <div class="row">
@@ -65,7 +75,7 @@
         </div>
         <div class="row">
             <button class="waves-effect waves-light btn" type="submit" [disabled]="form.invalid || submitted">
-                Create
+                Save
             </button>
         </div>
     </form>

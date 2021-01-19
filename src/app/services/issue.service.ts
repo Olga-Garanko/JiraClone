@@ -38,6 +38,11 @@ export class IssueService {
     })
   }
 
+  update(key, issue) {
+    const issuesRef = this.db.list('issues');
+    return issuesRef.update(key, issue);
+  }
+
   remove(id) {
     return this.db.list<Issue>('issues').remove(id);
   }
@@ -55,4 +60,5 @@ export class IssueService {
         map(issues => issues.filter(issue => issue.project === id))
       )
   }
+
 }
